@@ -1,4 +1,6 @@
 ﻿using System;
+using FluentValidation.Results;
+using Stocks.Billing.Domain.Commands.Validators;
 
 namespace Stocks.Billing.Domain.Commands
 {
@@ -9,6 +11,11 @@ namespace Stocks.Billing.Domain.Commands
       Hash = hash;
       Name = name;
       Url = url;
+    }
+
+    public override ValidationResult Validate()
+    {
+      return new CreateHomeBrokerCommandValidator().Validate(this);
     }
   }
 }

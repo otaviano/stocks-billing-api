@@ -1,15 +1,15 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
-using Stocks.Billing.Domain.Commands;
-using Stocks.Billing.Domain.Entities;
-using Stocks.Billing.Domain.Exceptions;
-using Stocks.Billing.Domain.Interfaces;
 using MediatR;
-using System;
+using Stocks.Billing.Domain.Commands;
+using Stocks.Billing.Domain.Core.CommandHandlers;
+using Stocks.Billing.Domain.Entities;
+using Stocks.Billing.Domain.Interfaces;
 
 namespace Stocks.Billing.Domain.CommandHandlers
 {
-  public class StockCommandHandler : IRequestHandler<CreateStockCommand>
+  public class StockCommandHandler : CommandHandler, IRequestHandler<CreateStockCommand>
   {
     private readonly IStockRepository stockRepository;
     private readonly IStockNoSqlRepository stockNoSqlRepository;
@@ -22,11 +22,7 @@ namespace Stocks.Billing.Domain.CommandHandlers
 
     public async Task<Unit> Handle(CreateStockCommand request, CancellationToken cancellationToken)
     {
-      // TODO : Extract to base or validations
-      if (request == null)
-      {
-        throw new InvalidCommandException();
-      }
+      ValidateAndThrow(request);
 
       var stock = new Stock
       {

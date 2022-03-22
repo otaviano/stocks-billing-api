@@ -1,7 +1,7 @@
-﻿using FluentValidation.Results;
-using Stocks.Billing.Domain.Exceptions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using FluentValidation.Results;
+using Stocks.Billing.Domain.Core.Exceptions;
 
 namespace Stocks.Billing.Api.Filters
 {

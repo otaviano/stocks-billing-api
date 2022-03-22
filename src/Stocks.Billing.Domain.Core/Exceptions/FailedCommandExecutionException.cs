@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Runtime.Serialization;
 
-namespace Stocks.Billing.Domain.Exceptions
+namespace Stocks.Billing.Domain.Core.Exceptions
 {
   [ExcludeFromCodeCoverage]
   [Serializable]

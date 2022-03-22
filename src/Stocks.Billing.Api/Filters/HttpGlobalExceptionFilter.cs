@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Stocks.Billing.Api.Extensions;
-using Stocks.Billing.Domain.Exceptions;
+using Stocks.Billing.Domain.Core.Exceptions;
 using System;
 using System.Security.Authentication;
 

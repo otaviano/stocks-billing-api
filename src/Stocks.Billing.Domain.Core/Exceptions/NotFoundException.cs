@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Stocks.Billing.Domain.Exceptions
+namespace Stocks.Billing.Domain.Core.Exceptions
 {
   public class NotFoundException : Exception
   {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using FluentValidation.Results;
 
-namespace Stocks.Billing.Domain.Exceptions
+namespace Stocks.Billing.Domain.Core.Exceptions
 {
   public class InvalidCommandException : BaseInvalidClientOperationException
   {

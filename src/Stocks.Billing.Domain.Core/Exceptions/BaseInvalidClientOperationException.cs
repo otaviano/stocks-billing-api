@@ -3,7 +3,7 @@ using System.Net;
 using System.Runtime.Serialization;
 using FluentValidation.Results;
 
-namespace Stocks.Billing.Domain.Exceptions
+namespace Stocks.Billing.Domain.Core.Exceptions
 {
   public abstract class BaseInvalidClientOperationException : Exception
   {
