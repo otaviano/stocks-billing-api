@@ -11,6 +11,7 @@ using Stocks.Billing.Bus;
 using MediatR;
 using Stocks.Billing.Domain.CommandHandlers;
 using Stocks.Billing.Domain.Commands;
+using Stocks.Billing.Infra.Data.NoSql.Repositories;
 
 namespace Stocks.Billing.Infra.IoC
 {
@@ -39,6 +40,8 @@ namespace Stocks.Billing.Infra.IoC
 
       services.AddScoped<IStockRepository, StockRepository>();
       services.AddScoped<IHomeBrokerRepository, HomeBrokerRepository>();
+      services.AddScoped<IStockNoSqlRepository, StockNoSqlRepository>();
+      services.AddScoped<IHomeBrokerNoSqlRepository, HomeBrokerNoSqlRepository>();
     }
 
     private static void RegisterDomain(IServiceCollection services)

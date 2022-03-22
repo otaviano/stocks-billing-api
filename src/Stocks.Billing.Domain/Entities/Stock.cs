@@ -4,7 +4,7 @@ namespace Stocks.Billing.Domain.Entities
 {
   public class Stock
   {
-    public Guid Hash { get; set; }
+    public Guid Id { get; set; }
 
     public string Ticker { get; set; }
 

@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Stocks.Billing.Application\Stocks.Billing.Application.csproj" />
     <ProjectReference Include="..\Stocks.Billing.Bus\Stocks.Billing.Bus.csproj" />
+    <ProjectReference Include="..\Stocks.Billing.Infra.Data.NoSql\Stocks.Billing.Infra.Data.NoSql.csproj" />
     <ProjectReference Include="..\Stocks.Billing.Infra.Data\Stocks.Billing.Infra.Data.csproj" />
     <ProjectReference Include="..\Stocks.Billing.Service\Stocks.Billing.Domain.Service.csproj" />
   </ItemGroup>

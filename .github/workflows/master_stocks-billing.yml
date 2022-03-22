@@ -1,12 +1,13 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - eleva-case
+name: Build and deploy ASP.Net Core app to Azure Web App - stocks-billing
 
 on:
   push:
     branches:
-      - master
+      #change to master when the environment is ready
+      - master-old
   workflow_dispatch:
 
 jobs:
@@ -14,12 +15,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@master
+    #change to master when the environment is ready
+    - uses: actions/checkout@master-old
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.301'
+        dotnet-version: '5.0'
 
     - name: Build with dotnet
       run: dotnet build --configuration Release
@@ -30,7 +32,7 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'eleva-case'
+        app-name: 'stocks-billing'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_3a4cc269546941968b98d9aa833c8e25 }}
         package: ${{env.DOTNET_ROOT}}/myapp 

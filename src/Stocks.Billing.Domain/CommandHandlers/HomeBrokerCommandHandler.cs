@@ -23,7 +23,7 @@ namespace Stocks.Billing.Domain.CommandHandlers
       
       var homeBroker = new HomeBroker
       {
-        Hash = request.Hash,
+        Id = request.Hash,
         Name = request.Name,
         Url = request.Url
       };

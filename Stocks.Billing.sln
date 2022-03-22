@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		.github\workflows\master_stocks-billing.yml = .github\workflows\master_stocks-billing.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -42,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stocks.Billing.UnitTests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stocks.Billing.Domain.Service", "src\Stocks.Billing.Service\Stocks.Billing.Domain.Service.csproj", "{53378684-116C-457F-91CA-1E85DCBB6570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stocks.Billing.Infra.Data.NoSql", "src\Stocks.Billing.Infra.Data.NoSql\Stocks.Billing.Infra.Data.NoSql.csproj", "{D36D168A-3533-4713-BACF-6DF2D23FDE1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stocks.Billing.Infra.Data.NoSql", "src\Stocks.Billing.Infra.Data.NoSql\Stocks.Billing.Infra.Data.NoSql.csproj", "{D36D168A-3533-4713-BACF-6DF2D23FDE1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

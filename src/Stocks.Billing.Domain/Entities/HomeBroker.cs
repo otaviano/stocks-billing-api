@@ -4,7 +4,7 @@ namespace Stocks.Billing.Domain.Entities
 {
     public class HomeBroker
     {
-        public Guid Hash { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 

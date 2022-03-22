@@ -26,7 +26,7 @@ namespace Stocks.Billing.Domain.CommandHandlers
 
       var stock = new Stock
       {
-        Hash = Guid.NewGuid(),
+        Id = Guid.NewGuid(),
         Ticker = request.Ticker,
         Title = request.Title,
         Type = request.Type
