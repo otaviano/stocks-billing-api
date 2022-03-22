@@ -1,8 +1,7 @@
-﻿using Stocks.Billing.Application.Interfaces;
-using Stocks.Billing.Application.ViewModel;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System;
+using Stocks.Billing.Application.Interfaces;
+using Stocks.Billing.Application.ViewModel;
 
 namespace Stocks.Billing.Api.Controllers
 {
@@ -20,36 +19,17 @@ namespace Stocks.Billing.Api.Controllers
     [HttpPost]
     public IActionResult Post([FromBody] StockViewModel model)
     {
-      try
-      {
-        classService.Create(model);
+      classService.Create(model);
 
-        return Accepted();
-      }
-      // TODO : tratamento de exceptions
-      //catch (ValidationException e)
-      //{
-      //    return BadRequest(new JsonErrorResponse(e.Errors));
-      //}
-      catch
-      {
-        return StatusCode((int)HttpStatusCode.InternalServerError);
-      }
+      return Accepted();
     }
 
     [HttpGet]
     public ActionResult Get([FromQuery] string name)
     {
-      try
-      {
-        var classes = classService.SearchStocks(Guid.Empty, name);
+      var classes = classService.SearchStocks(Guid.Empty, name);
 
-        return Ok(classes);
-      }
-      catch
-      {
-        return StatusCode((int)HttpStatusCode.InternalServerError);
-      }
+      return Ok(classes);
     }
   }
 }

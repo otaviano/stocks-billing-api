@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Stocks.Billing.Infra.Data.NoSql.Repositories
 {
@@ -12,23 +13,22 @@ namespace Stocks.Billing.Infra.Data.NoSql.Repositories
   {
     private readonly IMongoDatabase mongoDatabase;
 
-    public StockNoSqlRepository(IMongoDatabase mongoDatabase)
+    public StockNoSqlRepository(IConfiguration configuration)
     {
-      this.mongoDatabase = mongoDatabase;
+      var client = new MongoClient(configuration.GetConnectionString("MongoConnection"));
+      mongoDatabase = client.GetDatabase("read-data");
     }
 
-    private IMongoCollection<T> GetCollection<T>()
-      => mongoDatabase.GetCollection<T>(nameof(T));
+    private IMongoCollection<T> GetCollection<T>() => 
+      mongoDatabase.GetCollection<T>(nameof(T));
 
     public IEnumerable<Stock> GetAll() =>
       GetCollection<Stock>().AsQueryable();
 
-    IEnumerable<Stock> IStockNoSqlRepository.Search(Guid hash, string ticker)
-    {
-      return GetCollection<Stock>().AsQueryable()
-        .Where( p => p.Hash == hash || p.Ticker == ticker);
-    }
-
+    IEnumerable<Stock> IStockNoSqlRepository.Search(Guid hash, string ticker) =>
+      GetCollection<Stock>().AsQueryable()
+        .Where(p => p.Hash == hash || p.Ticker == ticker);
+    
     public async Task Create(Stock stock) =>
       await GetCollection<Stock>().InsertOneAsync(stock);
   }

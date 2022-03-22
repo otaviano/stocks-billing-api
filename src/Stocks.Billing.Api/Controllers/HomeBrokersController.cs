@@ -19,38 +19,19 @@ namespace Stocks.Billing.Api.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] HomeBrokerViewModel model)
+    public async Task<IActionResult> Post([FromBody] HomeBrokerViewModel model)
     {
-      try
-      {
-        await schoolService.Create(model);
+      await schoolService.Create(model);
 
-        return Accepted();
-      }
-      // TODO : tratamento de exceptions
-      //catch (ValidationException e)
-      //{
-      //    return BadRequest(new JsonErrorResponse(e.Errors));
-      //}
-      catch
-      {
-        return StatusCode((int)HttpStatusCode.InternalServerError);
-      }
+      return Accepted();
     }
 
     [HttpGet]
     public ActionResult Get([FromQuery] string name)
     {
-      try
-      {
         var schools = schoolService.Search(Guid.Empty, name);
 
         return Ok(schools);
-      }
-      catch
-      {
-        return StatusCode((int)HttpStatusCode.InternalServerError);
-      }
     }
   }
 }
