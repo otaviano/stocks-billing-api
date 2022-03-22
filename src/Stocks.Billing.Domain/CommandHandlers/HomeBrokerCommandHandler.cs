@@ -11,10 +11,12 @@ namespace Stocks.Billing.Domain.CommandHandlers
   public class HomeBrokerCommandHandler : CommandHandler, IRequestHandler<CreateHomeBrokerCommand, Unit>
   {
     private readonly IHomeBrokerRepository homeBrokerRepository;
+    private readonly IHomeBrokerNoSqlRepository homeBrokerNoSqlRepository;
 
-    public HomeBrokerCommandHandler(IHomeBrokerRepository homeBrokerRepository)
+    public HomeBrokerCommandHandler(IHomeBrokerRepository homeBrokerRepository, IHomeBrokerNoSqlRepository homeBrokerNoSqlRepository)
     {
       this.homeBrokerRepository = homeBrokerRepository;
+      this.homeBrokerNoSqlRepository = homeBrokerNoSqlRepository;
     }
 
     public async Task<Unit> Handle(CreateHomeBrokerCommand request, CancellationToken cancellationToken)
@@ -29,6 +31,7 @@ namespace Stocks.Billing.Domain.CommandHandlers
       };
 
       await homeBrokerRepository.Create(homeBroker);
+      await homeBrokerNoSqlRepository.Create(homeBroker);
 
       return await Unit.Task;
     }

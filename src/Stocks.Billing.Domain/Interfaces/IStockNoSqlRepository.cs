@@ -6,7 +6,8 @@ namespace Stocks.Billing.Domain.Interfaces
 {
   public interface IStockNoSqlRepository : IStockRepository
   {
+    Stock Get(Guid hash);
     IEnumerable<Stock> GetAll();
-    IEnumerable<Stock> Search(Guid hash, string ticker);
+    IEnumerable<Stock> Search(string ticker);
   }
 }

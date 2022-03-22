@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace Stocks.Billing.Application.Interfaces
 {
-    public interface IStockService
-    {
-        IEnumerable<StockViewModel> SearchStocks(Guid hash, string name);
-
-        IEnumerable<StockViewModel> GetStocks();
-
-        Task Create(StockViewModel model);
-    }
+  public interface IStockService
+  {
+    StockViewModel Get(Guid id);
+    IEnumerable<StockViewModel> GetStocks();
+    IEnumerable<StockViewModel> Search(string ticker);
+    Task Create(StockViewModel model);
+  }
 }

@@ -2,10 +2,8 @@
 
 namespace Stocks.Billing.Domain.Entities
 {
-  public class Stock
+  public class Stock : Entity
   {
-    public Guid Id { get; set; }
-
     public string Ticker { get; set; }
 
     public string Title { get; set; }

@@ -5,7 +5,7 @@ namespace Stocks.Billing.Application.ViewModel
 {
   public class StockViewModel
   {
-    public Guid Hash { get; set; }
+    public Guid Id { get; set; }
 
     public string Ticker { get; set; }
 

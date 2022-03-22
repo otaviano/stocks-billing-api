@@ -3,7 +3,9 @@
     Create a app to manage my stocks.
 
 ## TODO
-    * Validators
+    * Fix Return object (guid)
+    * Fix newguid on create
+    * Fix search by like
+
     * Tests
-    * Tratamento de Exceções
     * log

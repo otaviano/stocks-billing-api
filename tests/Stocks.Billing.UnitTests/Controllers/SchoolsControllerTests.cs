@@ -55,7 +55,7 @@ namespace Take.Zendesk.Integration.Tests.Controllers
           .CreateMany(10);
 
       _schoolService
-          .Setup(p => p.Search(It.IsAny<Guid>(), It.IsAny<string>()))
+          .Setup(p => p.Search(It.IsAny<string>()))
           .Returns(schools);
     }
   }

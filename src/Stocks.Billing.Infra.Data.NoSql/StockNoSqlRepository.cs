@@ -9,27 +9,23 @@ using Microsoft.Extensions.Configuration;
 
 namespace Stocks.Billing.Infra.Data.NoSql.Repositories
 {
-  public class StockNoSqlRepository : IStockNoSqlRepository
+  public class StockNoSqlRepository : NoSqlRepository<Stock>, IStockNoSqlRepository
   {
-    private readonly IMongoDatabase mongoDatabase;
-
-    public StockNoSqlRepository(IConfiguration configuration)
-    {
-      var client = new MongoClient(configuration.GetConnectionString("MongoConnection"));
-      mongoDatabase = client.GetDatabase("read-data");
-    }
-
-    private IMongoCollection<T> GetCollection<T>() => 
-      mongoDatabase.GetCollection<T>(nameof(T));
+    public StockNoSqlRepository(IConfiguration configuration) 
+      : base(configuration) { }
 
     public IEnumerable<Stock> GetAll() =>
-      GetCollection<Stock>().AsQueryable();
+      GetCollection().AsQueryable();
 
-    public IEnumerable<Stock> Search(Guid hash, string ticker) =>
-      GetCollection<Stock>().AsQueryable()
-        .Where(p => p.Id == hash || p.Ticker == ticker);
+    public Stock Get(Guid hash) =>
+      GetCollection().AsQueryable()
+        .FirstOrDefault(p => p.Id == hash);
+
+    public IEnumerable<Stock> Search(string ticker) =>
+      GetCollection().AsQueryable()
+        .Where(p => string.IsNullOrEmpty(p.Ticker) || p.Ticker == ticker);
     
     public async Task Create(Stock stock) =>
-      await GetCollection<Stock>().InsertOneAsync(stock);
+      await GetCollection().InsertOneAsync(stock);
   }
 }

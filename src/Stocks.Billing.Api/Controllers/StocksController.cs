@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Stocks.Billing.Application.Interfaces;
 using Stocks.Billing.Application.ViewModel;
@@ -9,27 +10,35 @@ namespace Stocks.Billing.Api.Controllers
   [ApiController]
   public class StocksController : ControllerBase
   {
-    private readonly IStockService classService;
+    private readonly IStockService stockService;
 
     public StocksController(IStockService classService)
     {
-      this.classService = classService;
+      this.stockService = classService;
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] StockViewModel model)
+    public async Task<IActionResult> Post([FromBody] StockViewModel model)
     {
-      classService.Create(model);
+      await stockService.Create(model);
 
-      return Accepted();
+      return Accepted(model);
     }
 
     [HttpGet]
     public ActionResult Get([FromQuery] string name)
     {
-      var classes = classService.SearchStocks(Guid.Empty, name);
+      var stocks = stockService.Search(name);
 
-      return Ok(classes);
+      return Ok(stocks);
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult Get([FromRoute] Guid id)
+    {
+      var stock = stockService.Get(id);
+
+      return Ok(stock);
     }
   }
 }

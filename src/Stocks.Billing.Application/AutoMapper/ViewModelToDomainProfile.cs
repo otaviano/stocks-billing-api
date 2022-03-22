@@ -12,7 +12,7 @@ namespace Stocks.Billing.Application.AutoMapper
           .ConstructUsing(p => new CreateStockCommand(p.Ticker, p.Title, (short)p.Type));
 
       CreateMap<HomeBrokerViewModel, CreateHomeBrokerCommand>()
-          .ConstructUsing(p => new CreateHomeBrokerCommand(p.Hash, p.Name, p.Url));
+          .ConstructUsing(p => new CreateHomeBrokerCommand(p.Id, p.Name, p.Url));
     }
   }
 }

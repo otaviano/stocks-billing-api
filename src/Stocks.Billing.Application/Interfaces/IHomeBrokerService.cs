@@ -7,8 +7,9 @@ namespace Stocks.Billing.Application.Interfaces
 {
   public interface IHomeBrokerService
   {
-    IEnumerable<HomeBrokerViewModel> Search(Guid hash, string name);
+    HomeBrokerViewModel Get(Guid hash);
     IEnumerable<HomeBrokerViewModel> Get();
+    IEnumerable<HomeBrokerViewModel> Search(string name);
     Task Create(HomeBrokerViewModel model);
   }
 }

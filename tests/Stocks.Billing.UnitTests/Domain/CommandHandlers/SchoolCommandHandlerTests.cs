@@ -13,31 +13,33 @@ namespace Stocks.Billing.UnitTests.Domain.CommandHandlers
 {
   public class SchoolCommandHandlerTests
   {
-    private readonly Mock<IHomeBrokerRepository> schoolRepository;
+    private readonly Mock<IHomeBrokerRepository> homeBrokerRepository;
+    private readonly Mock<IHomeBrokerNoSqlRepository> homeBrokerNoSqlRepository;
     private readonly HomeBrokerCommandHandler schoolCommandHandler;
-    private readonly Fixture _fixture = new Fixture();
+    private readonly Fixture fixture = new();
     private readonly CancellationToken cancelationToken;
     private const string GenericString = "xpto";
 
     public SchoolCommandHandlerTests()
     {
-      schoolRepository = new Mock<IHomeBrokerRepository>();
+      homeBrokerRepository = new Mock<IHomeBrokerRepository>();
+      homeBrokerNoSqlRepository = new Mock<IHomeBrokerNoSqlRepository>();
       cancelationToken = new CancellationToken();
-      schoolCommandHandler = new HomeBrokerCommandHandler(schoolRepository.Object);
+      schoolCommandHandler = new HomeBrokerCommandHandler(homeBrokerRepository.Object, homeBrokerNoSqlRepository.Object);
     }
 
     [Fact]
     public async Task Handle_GivenAValidCreateSchoolCommand_ShouldCallCreateRepositoryAsync()
     {
       var command = new Mock<CreateHomeBrokerCommand>(GenericString, GenericString);
-      var school = _fixture
+      var school = fixture
           .Build<Stock>()
           .Create();
 
-      schoolRepository.Setup(p => p.Create(It.IsAny<HomeBroker>()));
+      homeBrokerRepository.Setup(p => p.Create(It.IsAny<HomeBroker>()));
       await schoolCommandHandler.Handle(command.Object, cancelationToken);
 
-      schoolRepository.Verify(x => x.Create(It.IsAny<HomeBroker>()), Times.Once);
+      homeBrokerRepository.Verify(x => x.Create(It.IsAny<HomeBroker>()), Times.Once);
     }
 
     [Fact]

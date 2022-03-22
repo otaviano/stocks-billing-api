@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Stocks.Billing.Application.Interfaces;
 using Stocks.Billing.Application.ViewModel;
 using Stocks.Billing.Domain.Commands;
@@ -41,9 +40,16 @@ namespace Stocks.Billing.Domain.Service
       return autoMapper.Map<List<HomeBrokerViewModel>>(homeBrokers);
     }
 
-    public IEnumerable<HomeBrokerViewModel> Search(Guid hash, string name)
+    public HomeBrokerViewModel Get(Guid hash)
     {
-      var homeBrokers = homeBrokerRepository.Search(hash, name);
+      var homeBrokers = homeBrokerRepository.Get(hash);
+
+      return autoMapper.Map<HomeBrokerViewModel>(homeBrokers);
+    }
+
+    public IEnumerable<HomeBrokerViewModel> Search(string name)
+    {
+      var homeBrokers = homeBrokerRepository.Search(name);
 
       return autoMapper.Map<List<HomeBrokerViewModel>>(homeBrokers);
     }

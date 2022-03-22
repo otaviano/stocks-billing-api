@@ -9,27 +9,22 @@ using Microsoft.Extensions.Configuration;
 
 namespace Stocks.Billing.Infra.Data.NoSql.Repositories
 {
-  public class HomeBrokerNoSqlRepository : IHomeBrokerNoSqlRepository
+  public class HomeBrokerNoSqlRepository : NoSqlRepository<HomeBroker>, IHomeBrokerNoSqlRepository
   {
-    private readonly IMongoDatabase mongoDatabase;
-
-    public HomeBrokerNoSqlRepository(IConfiguration configuration)
-    {
-      var client = new MongoClient(configuration.GetConnectionString("MongoConnection"));
-      mongoDatabase = client.GetDatabase("read-data");
-    }
-
-    private IMongoCollection<T> GetCollection<T>() => 
-      mongoDatabase.GetCollection<T>(nameof(T));
+    public HomeBrokerNoSqlRepository(IConfiguration configuration) 
+      : base(configuration) { }
 
     public IEnumerable<HomeBroker> GetAll() =>
-      GetCollection<HomeBroker>().AsQueryable();
+      GetCollection().AsQueryable();
 
-    public IEnumerable<HomeBroker> Search(Guid hash, string name) =>
-      GetCollection<HomeBroker>().AsQueryable()
-        .Where(p => p.Id == hash || p.Name == name);
-    
+    public HomeBroker Get(Guid hash) =>
+      GetCollection().AsQueryable().Where(p => p.Id == hash).FirstOrDefault();
+
+    public IEnumerable<HomeBroker> Search(string name) =>
+      GetCollection().AsQueryable()
+        .Where(p => (string.IsNullOrEmpty(name) || p.Name.Contains(name)));
+
     public async Task Create(HomeBroker homeBroker) =>
-      await GetCollection<HomeBroker>().InsertOneAsync(homeBroker);
+      await GetCollection().InsertOneAsync(homeBroker);
   }
 }

@@ -40,9 +40,16 @@ namespace Stocks.Billing.Domain.Service
       return autoMapper.Map<List<StockViewModel>>(stocks);
     }
 
-    public IEnumerable<StockViewModel> SearchStocks(Guid hash, string name)
+    public StockViewModel Get(Guid id)
     {
-      var stocks = stockQueryRepository.Search(hash, name);
+      var stocks = stockQueryRepository.Get(id);
+
+      return autoMapper.Map<StockViewModel>(stocks);
+    }
+
+    public IEnumerable<StockViewModel> Search(string name)
+    {
+      var stocks = stockQueryRepository.Search(name);
 
       return autoMapper.Map<List<StockViewModel>>(stocks);
     }

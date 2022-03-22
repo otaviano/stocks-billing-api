@@ -11,27 +11,35 @@ namespace Stocks.Billing.Api.Controllers
   [ApiController]
   public class HomeBrokersController : ControllerBase
   {
-    private readonly IHomeBrokerService schoolService;
+    private readonly IHomeBrokerService homeBrokerService;
 
-    public HomeBrokersController(IHomeBrokerService schoolService)
+    public HomeBrokersController(IHomeBrokerService homeBrokerService)
     {
-      this.schoolService = schoolService;
+      this.homeBrokerService = homeBrokerService;
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] HomeBrokerViewModel model)
     {
-      await schoolService.Create(model);
+      await homeBrokerService.Create(model);
 
-      return Accepted();
+      return Accepted(model);
     }
 
     [HttpGet]
     public ActionResult Get([FromQuery] string name)
     {
-        var schools = schoolService.Search(Guid.Empty, name);
+        var homeBrokers = homeBrokerService.Search(name);
 
-        return Ok(schools);
+        return Ok(homeBrokers);
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult Get([FromRoute] Guid id)
+    {
+      var homeBroker = homeBrokerService.Get(id);
+
+      return Ok(homeBroker);
     }
   }
 }
