@@ -3,9 +3,13 @@
     Create a app to manage my stocks.
 
 ## TODO
-    * Fix Return object (guid)
-    * Fix newguid on create
-    * Fix search by like
+    * Fix search by like to accept null paramns
+    * Do Versioning API
+    * Refactor IOC
+    * Refactor json error return
+    * Pagination to get list results
+    * Authentication
+    * docker-compose
 
     * Tests
     * log
