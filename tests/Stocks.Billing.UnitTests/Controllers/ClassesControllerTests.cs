@@ -26,7 +26,7 @@ namespace Take.Zendesk.Integration.Tests.Controllers
     [Fact]
     public void GetClasses_GivenAValidRequest_ShouldReturnStatus200()
     {
-      MockClassList();
+      MockStockList();
 
       var controller = new StocksController(_classesService.Object);
       var response = controller.Get(genericString);
@@ -39,24 +39,24 @@ namespace Take.Zendesk.Integration.Tests.Controllers
     [Fact]
     public void GetClasses_GivenAValidRequest_ShouldReturnAListItems()
     {
-      MockClassList();
+      MockStockList();
 
       var controller = new StocksController(_classesService.Object);
       var okResult = controller.Get(genericString) as OkObjectResult;
 
-      var items = Assert.IsAssignableFrom<IEnumerable<StockViewModel>>(okResult.Value);
+      var items = Assert.IsAssignableFrom<IEnumerable<CreateStockViewModel>>(okResult.Value);
       items.Should().HaveCount(10);
     }
 
-    private void MockClassList()
+    private void MockStockList()
     {
-      var classes = _fixture
+      var stocks = _fixture
           .Build<StockViewModel>()
           .CreateMany(10);
 
       _classesService
           .Setup(p => p.Search(It.IsAny<string>()))
-          .Returns(classes);
+          .Returns(stocks);
     }
   }
 }

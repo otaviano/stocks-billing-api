@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Stocks.Billing.Application.ViewModel;
 using Stocks.Billing.Domain.Commands;
 
@@ -8,11 +9,17 @@ namespace Stocks.Billing.Application.AutoMapper
   {
     public ViewModelToDomainProfile()
     {
-      CreateMap<StockViewModel, CreateStockCommand>()
-          .ConstructUsing(p => new CreateStockCommand(p.Ticker, p.Title, (short)p.Type));
+      CreateMap<CreateStockViewModel, CreateStockCommand>()
+          .ConstructUsing(p => new CreateStockCommand(Guid.NewGuid(), p.Ticker, p.Title, (short)p.Type));
 
-      CreateMap<HomeBrokerViewModel, CreateHomeBrokerCommand>()
-          .ConstructUsing(p => new CreateHomeBrokerCommand(p.Id, p.Name, p.Url));
+      CreateMap<UpdateStockViewModel, UpdateStockCommand>()
+        .ConstructUsing(p => new UpdateStockCommand(p.Id, p.Ticker, p.Title, (short)p.Type));
+
+      CreateMap<CreateHomeBrokerViewModel, CreateHomeBrokerCommand>()
+          .ConstructUsing(p => new CreateHomeBrokerCommand(Guid.NewGuid(), p.Name, p.Url));
+
+      CreateMap<UpdateHomeBrokerViewModel, UpdateHomeBrokerCommand>()
+          .ConstructUsing(p => new UpdateHomeBrokerCommand(p.Id, p.Name, p.Url));
     }
   }
 }

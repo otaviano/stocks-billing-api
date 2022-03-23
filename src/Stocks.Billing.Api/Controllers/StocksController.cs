@@ -18,9 +18,17 @@ namespace Stocks.Billing.Api.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] StockViewModel model)
+    public async Task<IActionResult> Post([FromBody] CreateStockViewModel model)
     {
-      await stockService.Create(model);
+      var id = await stockService.Create(model);
+
+      return Accepted(new { Id = id });
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Put([FromBody] UpdateStockViewModel model)
+    {
+      await stockService.Update(model);
 
       return Accepted(model);
     }
@@ -38,7 +46,10 @@ namespace Stocks.Billing.Api.Controllers
     {
       var stock = stockService.Get(id);
 
-      return Ok(stock);
+      if (stock != null)
+        return Ok(stock);
+
+      return NotFound();
     }
   }
 }

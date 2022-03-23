@@ -4,9 +4,9 @@ using Stocks.Billing.Domain.Commands.Validators;
 
 namespace Stocks.Billing.Domain.Commands
 {
-  public class CreateStockCommand : StockCommand
+  public class UpdateStockCommand : StockCommand
   {
-    public CreateStockCommand(Guid id, string ticker, string title, short type)
+    public UpdateStockCommand(Guid id, string ticker, string title, short type)
     {
       Hash = id;
       Ticker = ticker;
@@ -16,7 +16,7 @@ namespace Stocks.Billing.Domain.Commands
 
     public override ValidationResult Validate()
     {
-      return new CreateStockCommandValidator().Validate(this);
+      return new UpdateStockCommandValidator().Validate(this);
     }
   }
 }

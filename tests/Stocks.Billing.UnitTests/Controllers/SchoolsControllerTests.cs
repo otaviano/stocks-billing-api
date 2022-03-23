@@ -25,7 +25,7 @@ namespace Take.Zendesk.Integration.Tests.Controllers
     [Fact]
     public void GetSchools_GivenAValidRequest_ShouldReturnStatus200()
     {
-      MockSchoolList();
+      MockHomeBrokerList();
 
       var controller = new HomeBrokersController(_schoolService.Object);
       var response = controller.Get(genericString);
@@ -39,24 +39,24 @@ namespace Take.Zendesk.Integration.Tests.Controllers
     [Fact]
     public void GetSchools_GivenAValidRequest_ShouldReturnAListItems()
     {
-      MockSchoolList();
+      MockHomeBrokerList();
 
       var controller = new HomeBrokersController(_schoolService.Object);
       var okResult = controller.Get(genericString) as OkObjectResult;
 
-      var items = Assert.IsAssignableFrom<IEnumerable<HomeBrokerViewModel>>(okResult.Value);
+      var items = Assert.IsAssignableFrom<IEnumerable<CreateHomeBrokerViewModel>>(okResult.Value);
       items.Should().HaveCount(10);
     }
 
-    private void MockSchoolList()
+    private void MockHomeBrokerList()
     {
-      var schools = _fixture
+      var homeBrokers = _fixture
           .Build<HomeBrokerViewModel>()
           .CreateMany(10);
 
       _schoolService
           .Setup(p => p.Search(It.IsAny<string>()))
-          .Returns(schools);
+          .Returns(homeBrokers);
     }
   }
 }

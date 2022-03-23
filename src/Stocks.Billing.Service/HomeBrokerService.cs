@@ -26,11 +26,12 @@ namespace Stocks.Billing.Domain.Service
       this.homeBrokerRepository = homeBrokerRepository;
     }
 
-    public async Task Create(HomeBrokerViewModel model)
+    public async Task<Guid> Create(CreateHomeBrokerViewModel model)
     {
       var command = autoMapper.Map<CreateHomeBrokerCommand>(model);
 
       await bus.SendCommand(command);
+      return command.Hash;
     }
 
     public IEnumerable<HomeBrokerViewModel> Get()
@@ -52,6 +53,11 @@ namespace Stocks.Billing.Domain.Service
       var homeBrokers = homeBrokerRepository.Search(name);
 
       return autoMapper.Map<List<HomeBrokerViewModel>>(homeBrokers);
+    }
+
+    public Task Update(UpdateHomeBrokerViewModel model)
+    {
+      throw new NotImplementedException();
     }
   }
 }

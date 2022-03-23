@@ -26,11 +26,12 @@ namespace Stocks.Billing.Domain.Service
       this.stockQueryRepository = stockQueryRepository;
     }
 
-    public async Task Create(StockViewModel model)
+    public async Task<Guid> Create(CreateStockViewModel model)
     {
       var command = autoMapper.Map<CreateStockCommand>(model);
-
+      
       await bus.SendCommand(command);
+      return command.Hash;
     }
 
     public IEnumerable<StockViewModel> GetStocks()
@@ -52,6 +53,11 @@ namespace Stocks.Billing.Domain.Service
       var stocks = stockQueryRepository.Search(name);
 
       return autoMapper.Map<List<StockViewModel>>(stocks);
+    }
+
+    public Task Update(UpdateStockViewModel model)
+    {
+      throw new NotImplementedException();
     }
   }
 }

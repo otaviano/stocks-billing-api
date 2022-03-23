@@ -1,9 +1,8 @@
-﻿using Stocks.Billing.Application.Interfaces;
-using Stocks.Billing.Application.ViewModel;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
+﻿using System;
 using System.Threading.Tasks;
-using System;
+using Microsoft.AspNetCore.Mvc;
+using Stocks.Billing.Application.Interfaces;
+using Stocks.Billing.Application.ViewModel;
 
 namespace Stocks.Billing.Api.Controllers
 {
@@ -19,9 +18,17 @@ namespace Stocks.Billing.Api.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] HomeBrokerViewModel model)
+    public async Task<IActionResult> Post([FromBody] CreateHomeBrokerViewModel model)
     {
-      await homeBrokerService.Create(model);
+      var id = await homeBrokerService.Create(model);
+
+      return Accepted(new { Id = id });
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Put([FromBody] UpdateHomeBrokerViewModel model)
+    {
+      await homeBrokerService.Update(model);
 
       return Accepted(model);
     }
@@ -38,8 +45,11 @@ namespace Stocks.Billing.Api.Controllers
     public ActionResult Get([FromRoute] Guid id)
     {
       var homeBroker = homeBrokerService.Get(id);
+      
+      if(homeBroker != null)
+        return Ok(homeBroker);
 
-      return Ok(homeBroker);
+      return NotFound();
     }
   }
 }

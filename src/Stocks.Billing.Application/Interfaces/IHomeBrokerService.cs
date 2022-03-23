@@ -10,6 +10,7 @@ namespace Stocks.Billing.Application.Interfaces
     HomeBrokerViewModel Get(Guid hash);
     IEnumerable<HomeBrokerViewModel> Get();
     IEnumerable<HomeBrokerViewModel> Search(string name);
-    Task Create(HomeBrokerViewModel model);
+    Task<Guid> Create(CreateHomeBrokerViewModel model);
+    Task Update(UpdateHomeBrokerViewModel model);
   }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Stocks.Billing.Domain.Commands;
@@ -26,7 +25,7 @@ namespace Stocks.Billing.Domain.CommandHandlers
 
       var stock = new Stock
       {
-        Id = Guid.NewGuid(),
+        Id = request.Hash,
         Ticker = request.Ticker,
         Title = request.Title,
         Type = request.Type
