@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Stocks.Billing.Domain.Core\Stocks.Billing.Domain.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Settings\" />
-  </ItemGroup>
-
 </Project>
