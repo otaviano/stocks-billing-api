@@ -6,15 +6,16 @@ using Stocks.Billing.Application.ViewModel;
 
 namespace Stocks.Billing.Api.Controllers
 {
-  [Route("api/[controller]")]
   [ApiController]
+  [ApiVersion("1.0")]
+  [Route("api/v{version:apiVersion}/[controller]")]
   public class StocksController : ControllerBase
   {
     private readonly IStockService stockService;
 
-    public StocksController(IStockService classService)
+    public StocksController(IStockService stockService)
     {
-      this.stockService = classService;
+      this.stockService = stockService;
     }
 
     [HttpPost]

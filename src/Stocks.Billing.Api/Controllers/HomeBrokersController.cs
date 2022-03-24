@@ -6,8 +6,9 @@ using Stocks.Billing.Application.ViewModel;
 
 namespace Stocks.Billing.Api.Controllers
 {
-  [Route("api/[controller]")]
   [ApiController]
+  [ApiVersion("1.0")]
+  [Route("api/v{version:apiVersion}/[controller]")]
   public class HomeBrokersController : ControllerBase
   {
     private readonly IHomeBrokerService homeBrokerService;

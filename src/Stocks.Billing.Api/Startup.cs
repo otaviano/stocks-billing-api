@@ -25,6 +25,7 @@ namespace Stocks.Billing.Api
       services.AddMediatR(typeof(Startup));
       services.RegisterAutoMapper();
       services.AddCors();
+      services.AddApiVersion();
       services.AddSwagger(Configuration);
       services.AddHealthChecks(Configuration);
       

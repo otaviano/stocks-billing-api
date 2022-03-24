@@ -1,8 +1,8 @@
 ﻿namespace Stocks.Billing.Domain.Settings
 {
-  public class SwaggerCheckSettings
+  public class SwaggerSettings
   {
-    public const string SectionName = "SwaggerCheckSettings";
+    public const string SectionName = "SwaggerSettings";
 
     public string Name { get; set; }
     public string Url { get; set; }

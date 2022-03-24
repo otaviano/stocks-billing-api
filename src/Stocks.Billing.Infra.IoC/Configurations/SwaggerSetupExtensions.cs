@@ -16,8 +16,8 @@ namespace Stocks.Billing.Infra.IoC.Configurations
   {
     public static void ConfigureSwagger(this IApplicationBuilder app, IConfiguration configuration, IApiVersionDescriptionProvider provider)
     {
-      var settings = configuration.GetSection(SwaggerCheckSettings.SectionName).Get<SwaggerCheckSettings>()
-        ?? throw new ArgumentNullException(nameof(SwaggerCheckSettings), "Missing SwaggerCheckSettings on the app settings");
+      var settings = configuration.GetSection(SwaggerSettings.SectionName).Get<SwaggerSettings>()
+        ?? throw new ArgumentNullException(nameof(SwaggerSettings), "Missing SwaggerCheckSettings on the app settings");
 
       app.UseSwagger();
       app.UseSwaggerUI(p =>
@@ -26,7 +26,7 @@ namespace Stocks.Billing.Infra.IoC.Configurations
 
         foreach (var description in provider.ApiVersionDescriptions)
         {
-          p.SwaggerEndpoint(string.Format(settings.Url, description.GroupName), $"settings.Name - {description.GroupName.ToUpperInvariant()}");
+          p.SwaggerEndpoint(string.Format(settings.Url, description.GroupName), $"{settings.Name} - {description.GroupName.ToUpperInvariant()}");
         }
       });
       app.ConfigureHealthCheckEndpoints(configuration);
@@ -34,8 +34,8 @@ namespace Stocks.Billing.Infra.IoC.Configurations
 
     public static void AddSwagger(this IServiceCollection services, IConfiguration configuration)
     {
-      var settings = configuration.GetSection(SwaggerCheckSettings.SectionName).Get<SwaggerCheckSettings>()
-        ?? throw new ArgumentNullException(nameof(SwaggerCheckSettings), "Missing SwaggerCheckSettings on the app settings");
+      var settings = configuration.GetSection(SwaggerSettings.SectionName).Get<SwaggerSettings>()
+        ?? throw new ArgumentNullException(nameof(SwaggerSettings), "Missing SwaggerCheckSettings on the app settings");
 
       services.AddSwaggerGen(options =>
       {
