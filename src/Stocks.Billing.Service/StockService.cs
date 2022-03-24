@@ -48,9 +48,9 @@ namespace Stocks.Billing.Domain.Service
       return autoMapper.Map<StockViewModel>(stocks);
     }
 
-    public IEnumerable<StockViewModel> Search(string name)
+    public IEnumerable<StockViewModel> GetBy(string ticker)
     {
-      var stocks = stockQueryRepository.Search(name);
+      var stocks = stockQueryRepository.Search(ticker.ToUpper());
 
       return autoMapper.Map<List<StockViewModel>>(stocks);
     }

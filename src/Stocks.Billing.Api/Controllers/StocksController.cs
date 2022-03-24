@@ -6,8 +6,8 @@ using Stocks.Billing.Application.ViewModel;
 
 namespace Stocks.Billing.Api.Controllers
 {
-  [ApiController]
   [ApiVersion("1.0")]
+  [ApiController]
   [Route("api/v{version:apiVersion}/[controller]")]
   public class StocksController : ControllerBase
   {
@@ -35,9 +35,9 @@ namespace Stocks.Billing.Api.Controllers
     }
 
     [HttpGet]
-    public ActionResult Get([FromQuery] string name)
+    public ActionResult Get([FromQuery] string ticker)
     {
-      var stocks = stockService.Search(name);
+      var stocks = stockService.GetBy(ticker);
 
       return Ok(stocks);
     }

@@ -4,8 +4,6 @@
 
 ## TODO
     * Fix search by like to accept null paramns
-    * Do Versioning API
-    * Refactor IOC
     * Refactor json error return
     * Pagination to get list results
     * Authentication

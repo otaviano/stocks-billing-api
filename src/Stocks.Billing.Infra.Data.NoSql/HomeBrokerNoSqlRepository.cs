@@ -6,25 +6,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Stocks.Billing.Infra.Data.NoSql.Context;
 
 namespace Stocks.Billing.Infra.Data.NoSql.Repositories
 {
-  public class HomeBrokerNoSqlRepository : NoSqlRepository<HomeBroker>, IHomeBrokerNoSqlRepository
+  public class HomeBrokerNoSqlRepository : IHomeBrokerNoSqlRepository
   {
-    public HomeBrokerNoSqlRepository(IConfiguration configuration) 
-      : base(configuration) { }
+    private readonly StockBillingNoSqlDbContext<HomeBroker> dbContext;
+
+    public HomeBrokerNoSqlRepository(StockBillingNoSqlDbContext<HomeBroker> dbContext) 
+    {
+      this.dbContext = dbContext;
+    }
 
     public IEnumerable<HomeBroker> GetAll() =>
-      GetCollection().AsQueryable();
+      dbContext.Collection.AsQueryable();
 
     public HomeBroker Get(Guid hash) =>
-      GetCollection().AsQueryable().Where(p => p.Id == hash).FirstOrDefault();
+      dbContext.Collection.AsQueryable().Where(p => p.Id == hash).FirstOrDefault();
 
     public IEnumerable<HomeBroker> Search(string name) =>
-      GetCollection().AsQueryable()
+      dbContext.Collection.AsQueryable()
         .Where(p => (string.IsNullOrEmpty(name) || p.Name.Contains(name)));
 
     public async Task Create(HomeBroker homeBroker) =>
-      await GetCollection().InsertOneAsync(homeBroker);
+      await dbContext.Collection.InsertOneAsync(homeBroker);
   }
 }

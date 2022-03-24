@@ -1,12 +1,11 @@
-﻿using AutoMapper;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Stocks.Billing.Application.AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Stocks.Billing.Infra.IoC.Configurations
 {
-  public static class AutoMapperConfigExtension
+  public static class AutoMapperSetupExtension
   {
-    public static void RegisterAutoMapper(this IServiceCollection services)
+    public static void AddAutoMapper(this IServiceCollection services)
     {
       services.AddAutoMapper(typeof(AutoMapperConfiguration));
       AutoMapperConfiguration.RegisterMappings();

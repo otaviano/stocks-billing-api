@@ -36,6 +36,9 @@ namespace Stocks.Billing.Infra.IoC.Configurations
     {
       var settings = configuration.GetSection(HealthCheckSettings.SectionName).Get<HealthCheckSettings>()
          ?? throw new ArgumentNullException(nameof(HealthCheckSettings), "Missing HealthCheckSettings on the app settings");
+      var mongoDbSettings = configuration.GetSection(MongoDbSettings.SectionName).Get<MongoDbSettings>()
+        ?? throw new ArgumentNullException(nameof(MongoDbSettings), "Missing MongoDbSettings on the app settings");
+
 
       services.AddHealthChecks()
         .AddCheck("self", () => HealthCheckResult.Healthy(settings.HealtyText))
@@ -44,7 +47,7 @@ namespace Stocks.Billing.Infra.IoC.Configurations
           name: "Sql Server"
         )
         .AddMongoDb(
-          mongodbConnectionString: configuration.GetConnectionString("MongoConnection"),
+          mongodbConnectionString: mongoDbSettings.ConnectionString,
           name: "MongoDb"
         );
     }

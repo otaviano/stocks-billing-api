@@ -37,22 +37,22 @@ namespace Stocks.Billing.Infra.IoC.Configurations
       var settings = configuration.GetSection(SwaggerSettings.SectionName).Get<SwaggerSettings>()
         ?? throw new ArgumentNullException(nameof(SwaggerSettings), "Missing SwaggerCheckSettings on the app settings");
 
-      services.AddSwaggerGen(options =>
+      services.AddSwaggerGen(p =>
       {
         var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
         foreach (var description in provider.ApiVersionDescriptions)
         {
-          options.SwaggerDoc(description.GroupName,
-               new OpenApiInfo
-               {
-                 Title = settings.Name,
-                 Version = description.GroupName,
-                 Description = settings.Description
-               });
+          p.SwaggerDoc(description.GroupName,
+            new OpenApiInfo
+            {
+              Title = settings.Name,
+              Version = description.GroupName,
+              Description = settings.Description
+            });
         }
 
-        options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+        p.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
       });
     }
   }

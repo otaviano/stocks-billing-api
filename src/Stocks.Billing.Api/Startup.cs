@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Stocks.Billing.Infra.IoC;
 using Stocks.Billing.Infra.IoC.Configurations;
 
 namespace Stocks.Billing.Api
@@ -23,14 +22,18 @@ namespace Stocks.Billing.Api
     {
       services.AddControllers();
       services.AddMediatR(typeof(Startup));
-      services.RegisterAutoMapper();
+      services.AddAutoMapper();
       services.AddCors();
+      services.AddSettings(Configuration);
+      services.AddSqlConnection(Configuration);
+      services.AddNoSqlConnection();
+      services.AddRepositories();
+      services.AddDomain();
+      services.AddServices();
+      services.AddMessageBrokerInMemmory();
       services.AddApiVersion();
       services.AddSwagger(Configuration);
       services.AddHealthChecks(Configuration);
-      
-      // TODO refactor to extensions.
-      DependencyContainer.RegisterServices(Configuration, services);
     }
 
     public void Configure(
@@ -38,23 +41,14 @@ namespace Stocks.Billing.Api
       IWebHostEnvironment env,
       IApiVersionDescriptionProvider provider)
     {
-      if (env.IsDevelopment())
-        app.UseDeveloperExceptionPage();
-      else
-        app.UseHttpsRedirection();
+      if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+      else app.UseHttpsRedirection();
 
       app.ConfigureSwagger(Configuration, provider);
       app.UseRouting();
       app.UseAuthorization();
-      app.UseCors(builder =>
-          builder.WithOrigins(Configuration.GetValue<string>("CorsAllowedHosts"))
-              .AllowAnyHeader()
-              .AllowAnyMethod());
-
-      app.UseEndpoints(endpoints =>
-      {
-        endpoints.MapControllers();
-      });
+      app.ConfigureCors(Configuration);
+      app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
   }
 }

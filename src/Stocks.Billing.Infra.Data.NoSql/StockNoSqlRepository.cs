@@ -1,31 +1,35 @@
-﻿using MongoDB.Driver;
-using Stocks.Billing.Domain.Entities;
-using Stocks.Billing.Domain.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
+using Stocks.Billing.Domain.Entities;
+using Stocks.Billing.Domain.Interfaces;
+using Stocks.Billing.Infra.Data.NoSql.Context;
 
 namespace Stocks.Billing.Infra.Data.NoSql.Repositories
 {
-  public class StockNoSqlRepository : NoSqlRepository<Stock>, IStockNoSqlRepository
+  public class StockNoSqlRepository : IStockNoSqlRepository
   {
-    public StockNoSqlRepository(IConfiguration configuration) 
-      : base(configuration) { }
+    private readonly StockBillingNoSqlDbContext<Stock> dbContext;
+
+    public StockNoSqlRepository(StockBillingNoSqlDbContext<Stock> dbContext) 
+    {
+      this.dbContext = dbContext;
+    }
 
     public IEnumerable<Stock> GetAll() =>
-      GetCollection().AsQueryable();
+      dbContext.Collection.AsQueryable();
 
     public Stock Get(Guid hash) =>
-      GetCollection().AsQueryable()
+      dbContext.Collection.AsQueryable()
         .FirstOrDefault(p => p.Id == hash);
 
     public IEnumerable<Stock> Search(string ticker) =>
-      GetCollection().AsQueryable()
+      dbContext.Collection.AsQueryable()
         .Where(p => string.IsNullOrEmpty(p.Ticker) || p.Ticker == ticker);
     
     public async Task Create(Stock stock) =>
-      await GetCollection().InsertOneAsync(stock);
+      await dbContext.Collection.InsertOneAsync(stock);
   }
 }

@@ -9,7 +9,7 @@ namespace Stocks.Billing.Application.Interfaces
   {
     StockViewModel Get(Guid id);
     IEnumerable<StockViewModel> GetStocks();
-    IEnumerable<StockViewModel> Search(string ticker);
+    IEnumerable<StockViewModel> GetBy(string ticker);
     Task<Guid> Create(CreateStockViewModel model);
     Task Update(UpdateStockViewModel model);
   }
