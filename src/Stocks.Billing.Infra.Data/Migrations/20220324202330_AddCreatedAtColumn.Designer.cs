@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stocks.Billing.Infra.Data.Context;
 
 namespace Stocks.Billing.Infra.Data.Migrations
 {
     [DbContext(typeof(StockBillingDbContext))]
-    partial class StockBillingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220324202330_AddCreatedAtColumn")]
+    partial class AddCreatedAtColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

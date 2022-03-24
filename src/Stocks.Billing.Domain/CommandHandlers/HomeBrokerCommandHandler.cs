@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Stocks.Billing.Domain.Commands;
@@ -27,7 +28,9 @@ namespace Stocks.Billing.Domain.CommandHandlers
       {
         Id = request.Hash,
         Name = request.Name,
-        Url = request.Url
+        Url = request.Url,
+        CreatedAt = DateTime.Now
+
       };
 
       await homeBrokerRepository.Create(homeBroker);
