@@ -7,9 +7,9 @@ namespace Stocks.Billing.Application.Interfaces
 {
   public interface IStockService
   {
-    StockViewModel Get(Guid id);
-    IEnumerable<StockViewModel> GetStocks();
-    IEnumerable<StockViewModel> GetBy(string ticker);
+    GetStockViewModelResponse Get(Guid id);
+    GetStockViewModelResponse GetBy(string ticker);
+    IEnumerable<GetStockViewModelResponse> GetStocks();
     Task<Guid> Create(CreateStockViewModel model);
     Task Update(UpdateStockViewModel model);
   }

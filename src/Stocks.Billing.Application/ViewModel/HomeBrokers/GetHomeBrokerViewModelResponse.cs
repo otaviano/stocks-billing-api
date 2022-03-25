@@ -2,7 +2,7 @@
 
 namespace Stocks.Billing.Application.ViewModel
 {
-  public class HomeBrokerViewModel
+  public class GetHomeBrokerViewModelResponse
   {
     public Guid Id { get; set; }
     public string Name { get; set; }

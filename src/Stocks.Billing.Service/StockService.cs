@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Stocks.Billing.Application.Interfaces;
@@ -26,38 +27,38 @@ namespace Stocks.Billing.Domain.Service
       this.stockQueryRepository = stockQueryRepository;
     }
 
+
+    public IEnumerable<GetStockViewModelResponse> GetStocks()
+    {
+      var stocks = stockQueryRepository.GetAll();
+
+      return autoMapper.Map<List<GetStockViewModelResponse>>(stocks);
+    }
+
+    public GetStockViewModelResponse Get(Guid id)
+    {
+      var stocks = stockQueryRepository.Get(id);
+
+      return autoMapper.Map<GetStockViewModelResponse>(stocks);
+    }
+
+    public GetStockViewModelResponse GetBy(string ticker)
+    {
+      var stock = stockQueryRepository.GetBy(ticker?.ToUpper());
+
+      return autoMapper.Map<GetStockViewModelResponse>(stock);
+    }
+
+    public Task Update(UpdateStockViewModel model)
+    {
+      throw new NotImplementedException();
+    }
     public async Task<Guid> Create(CreateStockViewModel model)
     {
       var command = autoMapper.Map<CreateStockCommand>(model);
       
       await bus.SendCommand(command);
       return command.Hash;
-    }
-
-    public IEnumerable<StockViewModel> GetStocks()
-    {
-      var stocks = stockQueryRepository.GetAll();
-
-      return autoMapper.Map<List<StockViewModel>>(stocks);
-    }
-
-    public StockViewModel Get(Guid id)
-    {
-      var stocks = stockQueryRepository.Get(id);
-
-      return autoMapper.Map<StockViewModel>(stocks);
-    }
-
-    public IEnumerable<StockViewModel> GetBy(string ticker)
-    {
-      var stocks = stockQueryRepository.Search(ticker.ToUpper());
-
-      return autoMapper.Map<List<StockViewModel>>(stocks);
-    }
-
-    public Task Update(UpdateStockViewModel model)
-    {
-      throw new NotImplementedException();
     }
   }
 }

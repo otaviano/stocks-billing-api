@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Stocks.Billing.Domain.Entities;
+using Stocks.Billing.Domain.Queries;
 
 namespace Stocks.Billing.Domain.Interfaces
 {
@@ -8,6 +9,6 @@ namespace Stocks.Billing.Domain.Interfaces
   {
     IEnumerable<HomeBroker> GetAll();
     HomeBroker Get(Guid hash);
-    IEnumerable<HomeBroker> Search(string name);
+    PagedResult<HomeBroker> Search(string name, int pageNumber, int pageSize);
   }
 }

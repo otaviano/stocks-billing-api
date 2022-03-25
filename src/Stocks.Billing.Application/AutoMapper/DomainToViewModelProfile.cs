@@ -8,8 +8,8 @@ namespace Stocks.Billing.Application.AutoMapper
   {
     public DomainToViewModelProfile()
     {
-      CreateMap<Stock, StockViewModel>();
-      CreateMap<HomeBroker, HomeBrokerViewModel>();
+      CreateMap<Stock, GetStockViewModelResponse>();
+      CreateMap<HomeBroker, GetHomeBrokerViewModelResponse>();
     }
   }
 }

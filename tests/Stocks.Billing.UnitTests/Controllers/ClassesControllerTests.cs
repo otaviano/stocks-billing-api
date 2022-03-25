@@ -51,7 +51,7 @@ namespace Take.Zendesk.Integration.Tests.Controllers
     private void MockStockList()
     {
       var stocks = _fixture
-          .Build<StockViewModel>()
+          .Build<GetStockViewModelResponse>()
           .CreateMany(10);
 
       _classesService

@@ -3,7 +3,7 @@ using Stocks.Billing.Domain.Entities;
 
 namespace Stocks.Billing.Application.ViewModel
 {
-  public class StockViewModel
+  public class GetStockViewModelResponse
   {
     public Guid Id { get; set; }
 

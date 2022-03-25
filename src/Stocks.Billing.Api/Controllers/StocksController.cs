@@ -37,9 +37,9 @@ namespace Stocks.Billing.Api.Controllers
     [HttpGet]
     public ActionResult Get([FromQuery] string ticker)
     {
-      var stocks = stockService.GetBy(ticker);
+      var stock = stockService.GetBy(ticker);
 
-      return Ok(stocks);
+      return Ok(stock);
     }
 
     [HttpGet("{id}")]

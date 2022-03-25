@@ -51,7 +51,7 @@ namespace Take.Zendesk.Integration.Tests.Controllers
     private void MockHomeBrokerList()
     {
       var homeBrokers = _fixture
-          .Build<HomeBrokerViewModel>()
+          .Build<GetHomeBrokerViewModelResponse>()
           .CreateMany(10);
 
       _schoolService

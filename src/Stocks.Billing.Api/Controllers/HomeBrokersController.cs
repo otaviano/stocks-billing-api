@@ -35,19 +35,19 @@ namespace Stocks.Billing.Api.Controllers
     }
 
     [HttpGet]
-    public ActionResult Get([FromQuery] string name)
+    public ActionResult Get([FromQuery] GetHomeBrokerViewModelRequest query)
     {
-        var homeBrokers = homeBrokerService.Search(name);
+      var homeBrokers = homeBrokerService.Search(query);
 
-        return Ok(homeBrokers);
+      return Ok(homeBrokers);
     }
 
     [HttpGet("{id}")]
     public ActionResult Get([FromRoute] Guid id)
     {
       var homeBroker = homeBrokerService.Get(id);
-      
-      if(homeBroker != null)
+
+      if (homeBroker != null)
         return Ok(homeBroker);
 
       return NotFound();
