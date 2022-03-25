@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Stocks.Billing.Api.Filters;
 using Stocks.Billing.Infra.IoC.Configurations;
 
 namespace Stocks.Billing.Api
@@ -20,7 +21,7 @@ namespace Stocks.Billing.Api
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddControllers();
+      services.AddHttpConfiguration(typeof(HttpGlobalExceptionFilter));
       services.AddMediatR(typeof(Startup));
       services.AddAutoMapper();
       services.AddCors();
