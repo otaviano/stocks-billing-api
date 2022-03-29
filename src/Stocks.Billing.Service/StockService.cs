@@ -26,7 +26,6 @@ namespace Stocks.Billing.Domain.Service
       this.stockQueryRepository = stockQueryRepository;
     }
 
-
     public IEnumerable<GetStockViewModelResponse> GetStocks()
     {
       var stocks = stockQueryRepository.GetAll();
